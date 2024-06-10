@@ -57,7 +57,7 @@ class CartViewSet(UserDataModelViewSet):
             resource_type = item.get('resourcetype', None)
             quantity = item.get('quantity', 1)
             pk = item.get('pk', None)
-            if resource_type is None or pk is None:
+            if not resource_type or not pk:
                 continue
             content_type = ContentType.objects.get(model=resource_type.lower())
             (o_item, created) = CartItem.objects.get_or_create(
@@ -85,7 +85,7 @@ class CartViewSet(UserDataModelViewSet):
         for item in items:
             resource_type = item.get('resourcetype', None)
             pk = item.get('pk', None)
-            if resource_type is None or pk is None:
+            if not resource_type not pk:
                 continue
             content_type = ContentType.objects.get(model=resource_type.lower())
             CartItem.objects.filter(
